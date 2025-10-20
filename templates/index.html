@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediksi Saham Microsoft</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="fade-bg">
+
+  <div class="container mt-5 text-center fade-in">
+    <h1 class="fw-bold text-info glow mb-3">📈 Prediksi Harga Saham Microsoft</h1>
+    <p class="lead text-light">
+      Aplikasi ini memperkirakan <b>harga penutupan saham Microsoft</b> untuk <b>hari berikutnya</b> berdasarkan data historis.
+    </p>
+
+    <!-- FORM INPUT -->
+    <div class="card glass shadow-lg p-4 mt-4">
+      <h4 class="text-light mb-3">🧮 Masukkan Data Harga Sebelumnya</h4>
+      <form id="predictForm" action="{{ url_for('predict') }}" method="post">
+        <div class="mb-3 text-start">
+          <label for="prices" class="form-label text-light fw-semibold">Data Harga Penutupan</label>
+          <div class="input-group">
+            <input type="text" name="prices" id="prices" class="form-control"
+                   placeholder="Masukkan harga manual atau klik tombol contoh di kanan →" required>
+            <button type="button" id="fillExample" class="btn btn-outline-info">Gunakan Contoh</button>
+            <button type="button" id="useLatest" class="btn btn-outline-warning">Gunakan Harga Terbaru</button>
+          </div>
+          <div class="form-text text-light mt-2">
+            💡 Contoh: <span class="badge bg-secondary">312.5, 310.8, 311.4, 313.0, 314.2</span>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary btn-lg pulse">🔮 Prediksi Harga Berikutnya</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- TABEL DATA -->
+    <div class="card glass shadow-lg p-4 mt-5">
+      <h4 class="text-light mb-3">📊 Data Harga Saham Microsoft</h4>
+      <div class="table-container">
+        <table class="table table-striped table-dark table-hover align-middle mb-0">
+          <thead class="sticky-top">
+            <tr>
+              <th>Tanggal</th>
+              <th>Open</th>
+              <th>High</th>
+              <th>Low</th>
+              <th>Close</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in data %}
+            <tr>
+              <td>{{ row['Date'] }}</td>
+              <td>{{ "%.2f"|format(row['Open']) }}</td>
+              <td>{{ "%.2f"|format(row['High']) }}</td>
+              <td>{{ "%.2f"|format(row['Low']) }}</td>
+              <td>{{ "%.2f"|format(row['Close']) }}</td>
+              <td>{{ row['Volume'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-muted small mt-2">💡 Scroll di dalam tabel untuk melihat data selengkapnya.</p>
+    </div>
+
+    <!-- GRAFIK INTERAKTIF -->
+    <div class="card glass shadow-lg p-4 mt-5">
+      <h4 class="text-light mb-3">📈 Grafik Interaktif Harga Penutupan</h4>
+      <div style="height: 400px;">
+        <canvas id="stockChart"></canvas>
+      </div>
+      
+    </div>
+
+
+    <footer class="mt-5 text-secondary">
+      <small>Dibuat oleh <b>Purwana Rijki Pirmansah</b> | TA-04 Pembelajaran Mesin</small>
+    </footer>
+  </div>
+
+  <!-- Chart.js & data -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script id="chart-data" type="application/json">
+    {{ chart_data | tojson | safe }}
+  </script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

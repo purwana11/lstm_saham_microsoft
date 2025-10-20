@@ -1,0 +1,42 @@
+body.fade-bg {
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+  }
+  
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+  }
+  
+  .glow {
+    text-shadow: 0 0 15px #00e0ff;
+  }
+  
+  .table-container {
+    max-height: 400px;
+    overflow-y: scroll;
+    border-radius: 10px;
+    border: 1px solid rgba(0,255,255,0.2);
+  }
+  
+  .table-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  .table-container::-webkit-scrollbar-thumb {
+    background: rgba(0,255,255,0.4);
+    border-radius: 5px;
+  }
+  
+  /* Hover efek gambar */
+  img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  
